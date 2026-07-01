@@ -66,6 +66,13 @@ impl TryFrom<IpcMessageRequest> for IpcEvent {
                                 let name = data.as_str().ok_or("Invalid mpv-observe-prop name")?;
                                 Ok(IpcEvent::Mpv(IpcEventMpv::Observe(name.to_owned())))
                             }
+                            "mpv-set-gpu-video-processing" => {
+                                let enabled = data.as_bool().ok_or("Invalid mpv-set-gpu-video-processing value")?;
+                                Ok(IpcEvent::Mpv(IpcEventMpv::Change((
+                                    "gpu-video-processing".to_string(),
+                                    serde_json::Value::Bool(enabled),
+                                ))))
+                            }
                             "mpv-set-prop" => {
                                 let key_value: Vec<Value> = serde_json::from_value(data)
                                     .map_err(|_| "Invalid mpv-set-prop arguments")?;

@@ -35,6 +35,7 @@ pub const STRING_PROPERTIES: &[&str] = &[
     "sid",
     "aid",
     "vid",
+    "vo",
     "mute",
     "metadata",
     "video-params",

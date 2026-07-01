@@ -28,6 +28,7 @@ impl Server {
     pub fn start(&mut self, dev: bool) -> anyhow::Result<()> {
         let mut child = Command::new("node")
             .env("NO_CORS", (dev as i32).to_string())
+            .arg("--no-deprecation")
             .arg(self.file.as_os_str())
             .stdout(process::Stdio::piped())
             .spawn()?;
